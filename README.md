@@ -36,6 +36,14 @@ This repository is the venture's business control and intelligence workspace. It
 - [Opportunity register](market-research/opportunity-register.md)
 - [Source register](market-research/source-register.md)
 
+## First product under validation
+
+- [Records-to-Reports service definition](products/records-to-reports.md)
+- [Customer discovery plan](operations/customer-discovery-plan.md)
+- [Pilot acceptance criteria](operations/pilot-acceptance-criteria.md)
+- [Synthetic sample report](samples/records-to-reports/sample-report.md)
+- [Synthetic sample data](samples/records-to-reports/sample-data.csv)
+
 ## Important disclaimer
 
 This repository contains commercial planning and secondary research, not legal, financial, procurement or regulatory advice. Before commercialising any dataset, confirm lawful access, licence terms, privacy obligations and permitted reuse.
