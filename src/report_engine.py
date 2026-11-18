@@ -91,6 +91,10 @@ def money(value: Decimal) -> str:
 
 def build_workbook(data: ReportData, output: Path, period: str) -> None:
     wb = Workbook()
+    wb.properties.title = "PNG Digital Intelligence | Records-to-Reports"
+    wb.properties.subject = f"Management summary for {period}"
+    wb.properties.creator = "PNG Digital Intelligence"
+    wb.properties.description = "Prepared from customer-supplied records; not an audit."
     summary = wb.active
     summary.title = "Summary"
     for row in [
@@ -119,6 +123,8 @@ def build_workbook(data: ReportData, output: Path, period: str) -> None:
     for issue in data.issues:
         issues_ws.append([issue])
     for ws in wb.worksheets:
+        ws.sheet_properties.pageSetUpPr.fitToPage = True
+        ws.sheet_properties.tabColor = "17365D"
         ws.freeze_panes = "A2"
         ws.auto_filter.ref = ws.dimensions if ws.max_row > 1 else "A1:A1"
         for cell in ws[1]:
@@ -128,12 +134,26 @@ def build_workbook(data: ReportData, output: Path, period: str) -> None:
         for col in ws.columns:
             width = min(max(max(len(str(c.value or "")) for c in col) + 2, 12), 48)
             ws.column_dimensions[get_column_letter(col[0].column)].width = width
+        if ws.title == "Summary":
+            for row in (5, 7, 8):
+                ws.cell(row=row, column=2).number_format = '"K"#,##0.00'
+            for row in range(12, ws.max_row + 1):
+                ws.cell(row=row, column=2).number_format = '"K"#,##0.00'
+        elif ws.title == "Cleaned Records":
+            for row in range(2, ws.max_row + 1):
+                ws.cell(row=row, column=6).number_format = '"K"#,##0.00'
     output.parent.mkdir(parents=True, exist_ok=True)
     wb.save(output)
 
 def build_pdf(data: ReportData, output: Path, period: str, organisation: str) -> None:
     styles = getSampleStyleSheet()
+    styles["Title"].textColor = colors.HexColor("#17365D")
+    styles["Title"].fontSize = 20
+    styles["Title"].leading = 24
     story = [
+        Paragraph("PNG DIGITAL INTELLIGENCE", styles["Heading2"]),
+        Paragraph("Turning scattered information into valuable intelligence.", styles["Italic"]),
+        Spacer(1, 3*mm),
         Paragraph("Monthly Management Summary", styles["Title"]),
         Paragraph(f"Organisation: {escape(organisation)}", styles["Normal"]),
         Paragraph(f"Reporting period: {escape(period)} | Currency: PGK", styles["Normal"]),
@@ -174,8 +194,17 @@ def build_pdf(data: ReportData, output: Path, period: str, organisation: str) ->
         for issue in data.issues:
             story.append(Paragraph(escape(issue), styles["BodyText"]))
     output.parent.mkdir(parents=True, exist_ok=True)
+    def add_footer(canvas, doc):
+        canvas.saveState()
+        canvas.setFont("Helvetica", 8)
+        canvas.setFillColor(colors.HexColor("#666666"))
+        canvas.drawString(18*mm, 10*mm, "PNG Digital Intelligence | Customer-supplied data; not an audit")
+        canvas.drawRightString(A4[0] - 18*mm, 10*mm, f"Page {doc.page}")
+        canvas.restoreState()
+
     SimpleDocTemplate(str(output), pagesize=A4, rightMargin=18*mm, leftMargin=18*mm,
-                      topMargin=18*mm, bottomMargin=18*mm).build(story)
+                      topMargin=18*mm, bottomMargin=18*mm).build(
+                          story, onFirstPage=add_footer, onLaterPages=add_footer)
 
 def generate(input_csv: Path, output_dir: Path, period: str, organisation: str) -> ReportData:
     data = load_csv(input_csv)
