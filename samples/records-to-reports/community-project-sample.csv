@@ -1,0 +1,6 @@
+date,reference,description,category,type,amount_p_g_k,status
+2026-07-01,NGO-001,Community project grant,Project funding,Income,12000.00,Received
+2026-07-03,NGO-002,Training materials,Programme costs,Expense,1850.00,Paid
+2026-07-08,NGO-003,Donor contribution,Donations,Income,4500.00,Received
+2026-07-12,NGO-004,Field travel,Transport,Expense,960.00,Paid
+2026-07-19,NGO-005,Community venue,Venue,Expense,700.00,Paid
