@@ -40,16 +40,16 @@ def test_second_synthetic_scenario_totals():
 
 def test_invalid_date_and_negative_amount_are_flagged(tmp_path):
     p = tmp_path / "invalid.csv"
-    p.write_text("date,reference,description,category,type,amount_p_g_k,status\\n"
-                 "not-a-date,A,one,Sales,Income,10,Confirmed\\n"
-                 "2026-01-02,B,two,Sales,Expense,-2,Paid\\n", encoding="utf-8")
+    p.write_text("date,reference,description,category,type,amount_p_g_k,status\n"
+                 "not-a-date,A,one,Sales,Income,10,Confirmed\n"
+                 "2026-01-02,B,two,Sales,Expense,-2,Paid\n", encoding="utf-8")
     import pytest
     with pytest.raises(ValueError, match="No valid records"):
         load_csv(p)
 
 def test_missing_required_columns_are_rejected(tmp_path):
     p = tmp_path / "missing.csv"
-    p.write_text("date,reference,amount_p_g_k\\n2026-01-01,A,10\\n", encoding="utf-8")
+    p.write_text("date,reference,amount_p_g_k\n2026-01-01,A,10\n", encoding="utf-8")
     import pytest
     with pytest.raises(ValueError, match="Missing required CSV columns"):
         load_csv(p)
