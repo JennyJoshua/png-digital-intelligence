@@ -1,0 +1,11 @@
+date,reference,description,category,type,amount_p_g_k,status
+2026-06-02,REC-001,Service income,Service income,Income,2500.00,Confirmed
+2026-06-04,REC-002,Office supplies,Office administration,Expense,500.00,Paid
+2026-06-07,REC-003,Project support income,Project income,Income,1800.00,Confirmed
+2026-06-09,REC-004,Transport costs,Transport,Expense,350.00,Paid
+2026-06-12,REC-005,Communications,Communications,Expense,420.00,Paid
+2026-06-15,REC-006,Training fees,Training income,Income,1200.00,Confirmed
+2026-06-18,REC-007,Venue hire,Venue,Expense,600.00,Paid
+2026-06-21,REC-008,Printing,Printing,Expense,275.00,Paid
+2026-06-24,REC-009,Local travel,Transport,Expense,180.00,Paid
+2026-06-27,REC-010,Equipment repair,Maintenance,Expense,250.00,Paid
