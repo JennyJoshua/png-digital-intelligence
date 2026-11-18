@@ -22,11 +22,17 @@ The initial offer is a fixed-scope monthly reporting service. The current pilot 
 - [Pilot acceptance criteria](operations/pilot-acceptance-criteria.md)
 - [Customer discovery plan](operations/customer-discovery-plan.md) — retained as reference; the business has chosen to proceed with implementation rather than delay for interviews.
 - [Synthetic sample report](samples/records-to-reports/sample-report.md)
-- [Synthetic sample data](samples/records-to-reports/sample-data.csv)
+- [Synthetic sample data — transaction register](samples/records-to-reports/sample-data.csv)
+- [Second synthetic scenario — community project](samples/records-to-reports/community-project-sample.md)
+- [Second scenario source CSV](samples/records-to-reports/community-project-sample.csv)
+- [Quote and proposal template](sales/quote-proposal-template.md)
+- [Invoice template and payment checklist](sales/invoice-template.md)
+- [Draft service terms and data acknowledgement](operations/service-terms-and-data-acknowledgement.md) — obtain PNG legal review before use
+- [Customer delivery and handover template](operations/delivery-handover-template.md)
 
 ### Report engine
 
-The Python report engine accepts a transaction CSV and generates:
+The Python report engine accepts a transaction CSV and generates branded PNG Digital Intelligence outputs:
 - An Excel workbook with Summary, Cleaned Records and Data Issues sheets.
 - A PDF management summary with key totals and expense categories.
 
